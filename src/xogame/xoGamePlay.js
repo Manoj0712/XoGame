@@ -45,7 +45,7 @@ export default class xoGamePlay extends Component {
                               </select>
                          </div>
                          <div className='pt-5'>
-                              <h1 className='font-bold font-serif'>Number Of Rows And Cloumns</h1>
+                              <h1 className='font-bold font-serif'>Number Of Rows And Columns</h1>
                               <input type="number" placeholder='Number of Rows And Cloumn' min="3" max="10" defalutvalue={this.state.rowsAndClounm}></input>
                          </div>
                     </div>
