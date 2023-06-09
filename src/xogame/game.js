@@ -3,21 +3,16 @@ import { ImClock } from 'react-icons/im';
 export default class Game extends React.Component {
      constructor() {
           super()
-          // this.matrixCount = []
           this.state = {
                player: 'Player1',
-               gameList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+               gameList: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','',''],
                listItem: [],
                massage: '',
-               // playerList: ['', '', '', '', '', '', '', '', ''],
                winOrLose: '',
                matrixCount: []
           }
      }
      statusChange(obj) {
-     let temp=this.state.matrixCount
-     temp[obj].l="x"
-     this.setState({matrixCount:temp})
           let xOrO = ''
           console.log("obj" + obj)
           if (this.state.player === 'Player1') {
@@ -37,12 +32,9 @@ export default class Game extends React.Component {
                     xOrO = "O";
                }
           }
-          console.log("list length" + this.state.gameList.length)
           this.state.gameList.splice(obj, 1, xOrO)
-          console.log("list length" + this.state.gameList.length)
-          // this.state.playerList.splice(obj, 1, this.state.player)
-          // this.setState({ playerList: [...this.state.playerList] })
           this.setState({ gameList: [...this.state.gameList] })
+          console.log(this.state.gameList)
           var count = 0
           this.state.gameList.map((game) => {
                if (game) {
@@ -116,25 +108,14 @@ export default class Game extends React.Component {
           for (var i = 0; i < Math.sqrt(this.state.gameList.length); i++) {
                var list1 = []
                for (var j = 0; j < Math.sqrt(this.state.gameList.length); j++) {
-                    list1.push({ id: counter, value: this.child, logic: this.state.gameList,l })
+                    list1.push({ id: counter})
                     counter++
                }
-               console.log(list1, "list1", this.matrixCount)
                this.matrixCount.push(list1)
-
           }
           this.setState({ matrixCount: this.matrixCount })
      }
-
-
-     child = (id, data) => {
-          console.log(id,data,"child");
-          return <div key={"ooo"} onClick={() => { this.statusChange(id) }} className={`h-12 w-12 border-4 border-black rounded bg-white text-black font-extrabold text-center text-2xl ${(data[id] === "X" && data[id]) ? "text-purple-500" : "text-yellow-500"}`}>
-               {data}
-          </div>
-     }
      render() {
-          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", this.state.matrixCount)
           return (
                <>
                     <div className="bg-slate-800 h-auto w-full text-white">
@@ -166,25 +147,20 @@ export default class Game extends React.Component {
                               <div className="text-red-600"><h1>{this.state.massage}</h1></div>
                               <div className={`flex flex-warp flex-col h-auto w-auto gap-2 p-5 bg-slate-600 sm:p-5 ${this.state.winOrLose ? "pointer-events-none" : ""}`}>
                                    {
-
                                         this.state.matrixCount.map((data, ind) => {
                                              return (
-                                                  <div className="flex fex-wrap gap-4">
+                                                  <div key={ind*10} className="flex fex-wrap gap-4">
                                                        {
-                                                            data.map((xo) => {
-                                                                 const { id, value, logic } = xo
-                                                                 console.log("add", xo, logic, id)
-                                                                 return <div key={ind} className="flex flex-row gap-2">
-                                                                      {value(id, logic)}
-                                                                      {/* {console.log(this.state.matrixCount)} */}
+                                                            data.map((xo,i) => {
+                                                                 const {id} = xo
+                                                                 return <div key={i} className="flex flex-row gap-2">
+                                                                      <div key={"ooo"} onClick={() => { this.statusChange(id) }} className={`h-12 w-12 border-4 border-black rounded bg-white text-black font-extrabold text-center text-2xl ${(this.state.gameList[id] === "X" && this.state.gameList[id]) ? "text-purple-500" : "text-yellow-500"}`}>
+               {this.state.gameList[id]}
+          </div>
                                                                  </div>
                                                             })
                                                        }
                                                   </div>)
-
-
-
-
                                         })
                                    }
                               </div>
